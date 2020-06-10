@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>as</groupId>
+	<artifactId>at6</artifactId>
+	<version>0.1</version>
+	<name>at6</name>
+	<description>at6</description>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	<!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>null</groupId>
+			<artifactId>null</artifactId>
+			<version>null</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/JAsioHost.jar</systemPath>
+		</dependency>
+	</dependencies>
+</project>

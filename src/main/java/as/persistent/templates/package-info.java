@@ -1,0 +1,4 @@
+/**
+*/
+
+package as.persistent.templates;

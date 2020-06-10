@@ -1,0 +1,11 @@
+Project Properties
+Java Build Path
+Access Rules
+
+Add
+
+Accessible
+javafx/**
+---------------
+url = https://bernd.dammer%40web.de@github.com/BerndDammer/as6.git
+
