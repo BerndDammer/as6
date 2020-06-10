@@ -11,6 +11,47 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>${artifactId}-${version}-exec</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<archive>
+						<manifest>
+							<mainClass>as.starter.StaticStarter</mainClass>
+						</manifest>
+					</archive>
+					<files>
+						<file>
+							<source>lib/JAsioHost.jar</source>
+							<!--  outputDirectory>lib</outputDirectory -->
+						</file>
+					</files>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
 	<!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
