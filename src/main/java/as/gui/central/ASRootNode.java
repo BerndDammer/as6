@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import as.gui.functionpanes.HomePane;
 import as.gui.functionpanes.InfoPane;
+import as.gui.functionpanes.MidiPane;
 import as.gui.functionpanes.RunPane;
 import as.gui.functionpanes.SelectPane;
 import as.gui.functionpanes.VideoPane;
@@ -52,6 +53,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
         functionPanes.add( activePane );
         functionPanes.add( new InfoPane( this ) );
         functionPanes.add( new SelectPane( this ) );
+        functionPanes.add( new MidiPane( this ) );
         functionPanes.add( new RunPane( this ) );
         functionPanes.add( new WebPane( this ) );
         functionPanes.add( new VideoPane( this ) );
