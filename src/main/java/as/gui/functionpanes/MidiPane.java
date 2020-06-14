@@ -2,16 +2,21 @@ package as.gui.functionpanes;
 
 import java.util.logging.Logger;
 
+import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Transmitter;
 
+import as.functionchain.IC_FunctionChainElement;
 import as.gui.interfaces.IC_RootParent;
 import as.gui.selectionbar.SelectionButton;
+import as.interim.message.DemuxReceiver;
+import as.interim.message.IL_MessageBaseReceiver;
+import as.interim.message.midi.MessageMidiControl;
+import as.interim.message.midi.MessageMidiControl.CMD;
 import as.logging.LoggingInit;
+import as.starter.StaticStarter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -19,14 +24,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
-public class MidiPane extends CenterPaneBase implements Receiver {
+public class MidiPane extends CenterPaneBase implements IL_MessageBaseReceiver<MessageMidiControl> {
 	private final Logger LOG = LoggingInit.get(this);
 	private DeviceChoice deviceChoice = new DeviceChoice();
 
 	private EventList eventList = new EventList();
-	private Transmitter tm = null;
-	private MidiDevice md = null;
-
 	class EventList extends TextArea {
 		public void nextMidi(MidiMessage message) {
 			appendText("M: " + message.getMessage()[0] + "." + message.getMessage()[1] + "." + message.getMessage()[2]
@@ -54,18 +56,22 @@ public class MidiPane extends CenterPaneBase implements Receiver {
 
 		@Override
 		public void handle(ActionEvent event) {
-			MidiDevice md = deviceChoice.getValue();
-			try {
-				// md = MidiSystem.getMidiDevice(mi);
-				tm = md.getTransmitter();
-				md.open();
-				tm.setReceiver(MidiPane.this);
-				logger.info("End init midi");
-			} catch (MidiUnavailableException e) {
-				logger.info("Problem init midi");
-				logger.throwing("Midi exception", "init", e);
-			}
+//			MidiDevice md = deviceChoice.getValue();
+//			try {
+//				// md = MidiSystem.getMidiDevice(mi);
+//				tm = md.getTransmitter();
+//				md.open();
+//				tm.setReceiver(MidiPane.this);
+//				LOG.info("End init midi");
+//			} catch (MidiUnavailableException e) {
+//				LOG.info("Problem init midi");
+//				LOG.throwing("Midi exception", "init", e);
+//			}
 
+			MessageMidiControl mmc = new MessageMidiControl();
+			mmc.cmd = CMD.SET_STATE;
+			mmc.state = IC_FunctionChainElement.STATE.RUNNING;
+			StaticStarter.getClientPort().publish(mmc);
 		}
 	}
 
@@ -102,16 +108,14 @@ public class MidiPane extends CenterPaneBase implements Receiver {
 		add(new Open(), 0, 2);
 		add(eventList, 1, 0, 1, GridPane.REMAINING);
 		eventList.setEditable(false);
+
+		StaticStarter.getClientPort().register(new MessageMidiControl(), this);
+
 	}
 
 	@Override
-	public void send(MidiMessage message, long timeStamp) {
-		LOG.info(message.toString());
-		eventList.nextMidi(message);
-	}
-
-	@Override
-	public void close() {
+	@DemuxReceiver(used = true)
+	public void receiveMessage(MessageMidiControl message) {
 		
 	}
 }
