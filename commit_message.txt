@@ -1,1 +1,1 @@
-2
+Workaround to add local jar into maven

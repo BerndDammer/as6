@@ -14,9 +14,9 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>${project.basedir}/libx</directory>
+				<directory>${project.basedir}</directory>
 				<includes>
-					<include>**</include>
+					<include>lib/*.jar</include>
 				</includes>
 			</resource>
 		</resources>
@@ -32,13 +32,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<finalName>as</finalName>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>as.starter.StaticStarter</mainClass>
-								</transformer>
-							</transformers>
 							<filters>
 								<filter>
 									<artifact>*:*</artifact>
@@ -46,10 +39,23 @@
 										<exclude>META-INF/*.SF</exclude>
 										<exclude>META-INF/*.DSA</exclude>
 										<exclude>META-INF/*.RSA</exclude>
-										<exclude>META-INF/MANIFEST.MF</exclude>
 									</excludes>
 								</filter>
+								<filter>
+									<artifact>JAsioHost:JAsioHost</artifact>
+									<includes>
+										<include>**</include>
+									</includes>
+								</filter>
 							</filters>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>as.starter.StaticStarter</mainClass>
+								</transformer>
+							</transformers>
+							<artifactSet>
+							</artifactSet>
 						</configuration>
 					</execution>
 				</executions>

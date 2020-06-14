@@ -12,14 +12,6 @@
 		<maven.compiler.target>8</maven.compiler.target>
 	</properties>
 	<build>
-		<resources>
-			<resource>
-				<directory>${project.basedir}/libx</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -32,15 +24,19 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<finalName>as</finalName>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>as.starter.StaticStarter</mainClass>
-								</transformer>
-							</transformers>
+							<finalName>as.jar</finalName>
+							<artifactSet>
+								<includes>
+									<include>JAsioHost:JAsioHost</include>
+									<include>JAsioHost:JAsioHost:jar:**</include>
+									<include>JAsioHost:JAsioHost:jar:*</include>
+									<include>JAsioHost:JAsioHost:*:jar</include>
+									<include>JAsioHost:JAsioHost:jar:**:**</include>
+								</includes>
+							</artifactSet>
 							<filters>
 								<filter>
+									<excludeDefaults>false</excludeDefaults>
 									<artifact>*:*</artifact>
 									<excludes>
 										<exclude>META-INF/*.SF</exclude>
@@ -49,7 +45,20 @@
 										<exclude>META-INF/MANIFEST.MF</exclude>
 									</excludes>
 								</filter>
+								<filter>
+									<excludeDefaults>false</excludeDefaults>
+									<artifact>JAsioHost:JAsioHost</artifact>
+									<includes>
+										<include>com/synthbot/jasiohost/**</include>
+									</includes>
+								</filter>
 							</filters>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>as.starter.StaticStarter</mainClass>
+								</transformer>
+							</transformers>
 						</configuration>
 					</execution>
 				</executions>

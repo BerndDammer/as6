@@ -12,47 +12,34 @@
 		<maven.compiler.target>8</maven.compiler.target>
 	</properties>
 	<build>
-		<resources>
-			<resource>
-				<directory>${project.basedir}/libx</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
-							<goal>shade</goal>
+							<goal>single</goal>
 						</goals>
-						<configuration>
-							<finalName>as</finalName>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>as.starter.StaticStarter</mainClass>
-								</transformer>
-							</transformers>
-							<filters>
-								<filter>
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-										<exclude>META-INF/MANIFEST.MF</exclude>
-									</excludes>
-								</filter>
-							</filters>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>as</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<archive>
+						<manifest>
+							<mainClass>as.starter.StaticStarter</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -66,9 +53,9 @@
 			<version>1.1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>JAsioHost</groupId>
-			<artifactId>JAsioHost</artifactId>
-			<version>1.0</version>
+			<groupId>null</groupId>
+			<artifactId>null</artifactId>
+			<version>null</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/JAsioHost.jar</systemPath>
 		</dependency>
