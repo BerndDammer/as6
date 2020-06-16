@@ -1,6 +1,8 @@
-package as.interim.message;
+package as.interim.message.sound;
 
 import java.util.List;
+
+import as.interim.message.MessageBase;
 
 public class MessagePlatformSelect extends MessageBase
 {

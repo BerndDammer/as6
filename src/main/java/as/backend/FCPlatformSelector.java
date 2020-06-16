@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import as.functionchain.IC_FunctionChainElement;
 import as.interim.message.IL_MessageBaseReceiver;
-import as.interim.message.MessagePlatformSelect;
+import as.interim.message.sound.MessagePlatformSelect;
 import as.logging.LoggingInit;
 import as.persistent.IC_SubTreeBase;
 import as.persistent.PersistentCentral;

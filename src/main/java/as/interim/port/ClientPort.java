@@ -11,6 +11,7 @@ import as.interim.ByteBufferInputStream;
 import as.interim.ByteBufferOutputStream;
 import as.interim.message.DemuxCall;
 import as.interim.message.IC_DemultiplexerMessage;
+import as.interim.message.IClientPort;
 import as.interim.message.IL_MessageBaseReceiver;
 import as.interim.message.IL_Publish;
 import as.interim.message.MessageBase;
@@ -20,7 +21,7 @@ import as.starter.IC_StaticConst;
 import as.starter.StaticStarter;
 import javafx.application.Platform;
 
-public class ClientPort extends PortBase implements IL_Publish, IC_DemultiplexerMessage
+public class ClientPort extends PortBase implements IClientPort
 {
     private final Logger logger = LoggingInit.get( this );
 

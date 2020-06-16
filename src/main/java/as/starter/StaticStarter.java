@@ -51,7 +51,7 @@ public class StaticStarter
         clientPort = new ClientPort();
         fcPlatformSelector = new FCPlatformSelector();
         
-        Midi midi = new Midi();
+        Midi midi = new Midi(serverPort);
         // must be last or separate thread
         Application.launch( ASApplication.class, args ); // this never returns !!!
     }

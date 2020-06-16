@@ -12,7 +12,7 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.TargetDataLine;
 
 import as.interim.message.IL_MessageBaseReceiver;
-import as.interim.message.MessageChannelSelect;
+import as.interim.message.sound.MessageChannelSelect;
 import as.logging.LoggingInit;
 import as.persistent.IC_SubTreeBase;
 import as.persistent.PersistentCentral;

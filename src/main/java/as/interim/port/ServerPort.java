@@ -11,14 +11,14 @@ import as.interim.ByteBufferInputStream;
 import as.interim.ByteBufferOutputStream;
 import as.interim.message.DemuxCall;
 import as.interim.message.IL_MessageBaseReceiver;
-import as.interim.message.IL_Publish;
+import as.interim.message.IServerPort;
 import as.interim.message.MessageBase;
 import as.interim.message.MessageIdentityDisk;
 import as.logging.LoggingInit;
 import as.starter.IC_StaticConst;
 import as.starter.StaticStarter;
 
-public class ServerPort extends PortBase implements IL_Publish
+public class ServerPort extends PortBase implements IServerPort
 {
     private final Logger logger = LoggingInit.get( this );
 

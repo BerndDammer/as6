@@ -15,6 +15,7 @@ import as.functionchain.IC_FunctionChainElement;
 import as.functionchain.IC_FunctionChainElement.STATE;
 import as.interim.message.DemuxReceiver;
 import as.interim.message.IL_MessageBaseReceiver;
+import as.interim.message.IServerPort;
 import as.interim.message.midi.MessageMidiControl;
 import as.interim.message.midi.MessageMidiData;
 import as.logging.LoggingInit;
@@ -27,13 +28,14 @@ public class Midi implements Receiver, IL_MessageBaseReceiver<MessageMidiControl
 	private Transmitter tm = null;
 	private MidiDevice md = null;
 	private boolean echoData = true;
-
+	private final IServerPort serverPort;
 	private IC_FunctionChainElement.STATE state = STATE.HAS_PARA;
 
-	public Midi() {
+	public Midi(final IServerPort serverPort) {
+		this.serverPort = serverPort;
 		scan();
 		state = STATE.HAS_PARA;
-		StaticStarter.getServerPort().register(new MessageMidiControl(), this);
+		serverPort.register(new MessageMidiControl(), this);
 	}
 
 	void scan() {
@@ -58,7 +60,7 @@ public class Midi implements Receiver, IL_MessageBaseReceiver<MessageMidiControl
 		if (echoData) {
 			MessageMidiData mmd = new MessageMidiData();
 			mmd.data = message.getMessage();
-			StaticStarter.getServerPort().publish(mmd);
+			serverPort.publish(mmd);
 		}
 	}
 
