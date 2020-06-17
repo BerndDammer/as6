@@ -3,6 +3,7 @@ package as.starter;
 import as.backend.FCPlatformSelector;
 import as.backend.midi.Midi;
 import as.gui.central.ASApplication;
+import as.interim.message.IClientPort;
 import as.interim.port.ClientPort;
 import as.interim.port.ServerPort;
 import as.logging.LoggingInit;
@@ -51,12 +52,17 @@ public class StaticStarter
         clientPort = new ClientPort();
         fcPlatformSelector = new FCPlatformSelector();
         
-        Midi midi = new Midi(serverPort);
+        final Midi midi = new Midi(serverPort);
         // must be last or separate thread
         Application.launch( ASApplication.class, args ); // this never returns !!!
     }
 
     public static ClientPort getClientPort()
+    {
+        return clientPort;
+    }
+
+    public static IClientPort getClientInterface()
     {
         return clientPort;
     }

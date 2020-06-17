@@ -124,4 +124,20 @@ public class Midi implements Receiver, IL_MessageBaseReceiver<MessageMidiControl
 			break;
 		}
 	}
+	public void setPotLimits(float[][] limits)
+	{
+		
+	}
+	/*
+	 * gets a mirror of the last pot values
+	 * the resulting field must only be changed
+	 * at the next call
+	 * the last return value is automatically invalid at the next get call
+	 * 
+	 * @return pot values
+	 */
+	public float[] getPots()
+	{
+		return new float[16];
+	}
 }
