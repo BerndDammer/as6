@@ -9,8 +9,7 @@ import as.gui.functionpanes.InfoPane;
 import as.gui.functionpanes.MidiPane;
 import as.gui.functionpanes.RunPane;
 import as.gui.functionpanes.SelectPane;
-import as.gui.functionpanes.VideoPane;
-import as.gui.functionpanes.WebPane;
+import as.gui.functionpanes.SoundInfoPane;
 import as.gui.headerbar.HeaderBar;
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_HeaderInterface;
@@ -54,9 +53,10 @@ public class ASRootNode extends GridPane implements IC_RootParent
         functionPanes.add( new InfoPane( this ) );
         functionPanes.add( new SelectPane( this ) );
         functionPanes.add( new MidiPane( this ) );
+        functionPanes.add( new SoundInfoPane( this ) );
         functionPanes.add( new RunPane( this ) );
-        functionPanes.add( new WebPane( this ) );
-        functionPanes.add( new VideoPane( this ) );
+        //functionPanes.add( new WebPane( this ) );
+        //functionPanes.add( new VideoPane( this ) );
 
         add( activePane.getPane(), 0, 1, GridPane.REMAINING, 1 );
 

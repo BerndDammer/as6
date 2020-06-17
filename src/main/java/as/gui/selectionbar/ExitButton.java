@@ -1,10 +1,8 @@
 package as.gui.selectionbar;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
-public class ExitButton extends SelectionButton implements EventHandler<ActionEvent>
+public class ExitButton extends SelectionButton 
 {
     public ExitButton()
     {
@@ -15,7 +13,7 @@ public class ExitButton extends SelectionButton implements EventHandler<ActionEv
     @Override
     public void handle( ActionEvent event )
     {
-        Platform.exit();
+        //Platform.exit();
         System.exit( 0 );
     }
 }
