@@ -2,8 +2,8 @@ package as.gui.central;
 
 import java.util.logging.Logger;
 
+import as.globals.Globals;
 import as.logging.LoggingInit;
-import as.starter.IC_StaticConst;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -33,7 +33,7 @@ public class ASApplication extends Application
     @Override
     public void start( Stage primaryStage ) throws Exception
     {
-        if (IC_StaticConst.SET_SIZE_INTERNAL)
+        if (Globals.SET_SIZE_INTERNAL)
         {
             primaryStage.initStyle( StageStyle.UNDECORATED );
             primaryStage.setScene( new MyScene() );
@@ -43,13 +43,13 @@ public class ASApplication extends Application
             if (isBigger())
             {
                 // primaryStage.initStyle( StageStyle.UNDECORATED );
-                primaryStage.setScene( new MyScene( IC_StaticConst.SCREEN_WIDTH + 40, IC_StaticConst.SCREEN_HEIGHT + 30 ) );
+                primaryStage.setScene( new MyScene( Globals.SCREEN_WIDTH + 40, Globals.SCREEN_HEIGHT + 30 ) );
             }
             else
             {
                 primaryStage.setFullScreen( true );
                 primaryStage.initStyle( StageStyle.UNDECORATED );
-                primaryStage.setScene( new MyScene( IC_StaticConst.SCREEN_WIDTH, IC_StaticConst.SCREEN_HEIGHT ) );
+                primaryStage.setScene( new MyScene( Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT ) );
             }
         }
         primaryStage.setTitle( "Grid Root Test" );
@@ -62,8 +62,8 @@ public class ASApplication extends Application
         boolean bigger;
         Screen root = Screen.getPrimary();
         Rectangle2D b = root.getBounds();
-        bigger = b.getWidth() > IC_StaticConst.SCREEN_WIDTH;
-        bigger |= b.getHeight() > IC_StaticConst.SCREEN_HEIGHT;
+        bigger = b.getWidth() > Globals.SCREEN_WIDTH;
+        bigger |= b.getHeight() > Globals.SCREEN_HEIGHT;
         logger.fine( "Screen Size >>>>" + b.toString() );
         return bigger;
     }

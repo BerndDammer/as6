@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.logging.Logger;
 
+import as.globals.Globals;
 import as.interim.ByteBufferInputStream;
 import as.interim.ByteBufferOutputStream;
 import as.interim.message.DemuxCall;
@@ -15,7 +16,6 @@ import as.interim.message.IServerPort;
 import as.interim.message.MessageBase;
 import as.interim.message.MessageIdentityDisk;
 import as.logging.LoggingInit;
-import as.starter.IC_StaticConst;
 import as.starter.StaticStarter;
 
 public class ServerPort extends PortBase implements IServerPort
@@ -25,7 +25,7 @@ public class ServerPort extends PortBase implements IServerPort
 
     private class ServerPortTransmitter extends SmallWorker
     {
-        private final ByteBuffer bbOutgoing = ByteBuffer.allocate( IC_StaticConst.BB_SIZE );
+        private final ByteBuffer bbOutgoing = ByteBuffer.allocate( Globals.BB_SIZE );
         private final ByteBufferOutputStream bbosOutgoing = new ByteBufferOutputStream();
 
         private boolean bufferFull = false;
@@ -61,7 +61,7 @@ public class ServerPort extends PortBase implements IServerPort
                 oos = new ObjectOutputStream( bbosOutgoing );
                 oos.writeObject( message );
                 oos.close();
-                if (IC_StaticConst.LOG_INTERIM)
+                if (Globals.LOG_INTERIM)
                     logger.info( "Message Size : " + bbOutgoing.position() );
                 bufferFull = true;
                 notify();
@@ -78,7 +78,7 @@ public class ServerPort extends PortBase implements IServerPort
                 defaultWait();
             bbOutgoing.flip();
             StaticStarter.getClientPort().incoming( bbOutgoing );
-            if (IC_StaticConst.LOG_INTERIM)
+            if (Globals.LOG_INTERIM)
                 logger.info( "Message downsend" );
             bufferFull = false;
             notify();
@@ -87,7 +87,7 @@ public class ServerPort extends PortBase implements IServerPort
 
     private class ServerPortReceiver extends SmallWorker
     {
-        private final ByteBuffer bbIncoming = ByteBuffer.allocate( IC_StaticConst.BB_SIZE );
+        private final ByteBuffer bbIncoming = ByteBuffer.allocate( Globals.BB_SIZE );
         private final ByteBufferInputStream bbisIncoming = new ByteBufferInputStream();
 
         private boolean bufferFull = false;
@@ -131,7 +131,7 @@ public class ServerPort extends PortBase implements IServerPort
                 ois = new ObjectInputStream( bbisIncoming );
                 Object o = ois.readObject();
                 ois.close();
-                if (IC_StaticConst.LOG_INTERIM)
+                if (Globals.LOG_INTERIM)
                     logger.info( "read object : " + o.getClass().getCanonicalName() );
                 bufferFull = false;
                 notify();
@@ -149,14 +149,14 @@ public class ServerPort extends PortBase implements IServerPort
                     }
                     else
                     {
-                        if (IC_StaticConst.LOG_INTERIM)
+                        if (Globals.LOG_INTERIM)
                             logger.info( "message without receiver" );
                     }
 
                 }
                 else
                 {
-                    if (IC_StaticConst.LOG_INTERIM)
+                    if (Globals.LOG_INTERIM)
                         logger.info( "read suspicious object : " + o.getClass().getCanonicalName() );
                 }
             }

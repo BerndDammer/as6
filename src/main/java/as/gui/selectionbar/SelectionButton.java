@@ -1,8 +1,8 @@
 package as.gui.selectionbar;
 
+import as.globals.Globals;
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_RootParent;
-import as.starter.IC_StaticConst;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -17,8 +17,8 @@ public class SelectionButton extends Button implements EventHandler<ActionEvent>
         this.functionPane = functionPane;
         this.rootParent = rootParent;
         setText( label );
-        setPrefSize( IC_StaticConst.GU, IC_StaticConst.GU );
-        setMinSize( IC_StaticConst.GU, IC_StaticConst.GU );
+        setPrefSize( Globals.GU, Globals.GU );
+        setMinSize( Globals.GU, Globals.GU );
         // TODO Auto-generated constructor stub
         if (functionPane != null && rootParent != null)
             setOnAction( this );

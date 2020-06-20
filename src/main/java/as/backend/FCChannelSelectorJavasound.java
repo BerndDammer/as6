@@ -11,12 +11,12 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.TargetDataLine;
 
+import as.globals.Globals;
 import as.interim.message.IL_MessageBaseReceiver;
 import as.interim.message.sound.MessageChannelSelect;
 import as.logging.LoggingInit;
 import as.persistent.IC_SubTreeBase;
 import as.persistent.PersistentCentral;
-import as.starter.IC_StaticConst;
 import as.starter.StaticStarter;
 
 public class FCChannelSelectorJavasound extends FCChannelSelectorBase
@@ -131,7 +131,7 @@ public class FCChannelSelectorJavasound extends FCChannelSelectorBase
             switch (getInputLineCount( mixer, inputLineInfos ))
             {
                 case 0:
-                    if (IC_StaticConst.LOG_AUDIO)
+                    if (Globals.LOG_AUDIO)
                         logger.info( name + " has no input lines" );
                     break;
                 case 1:
@@ -145,7 +145,7 @@ public class FCChannelSelectorJavasound extends FCChannelSelectorBase
             switch (getOutputLineCount( mixer, outputLineInfos ))
             {
                 case 0:
-                    if (IC_StaticConst.LOG_AUDIO)
+                    if (Globals.LOG_AUDIO)
                     logger.info( name + " has no outpu lines" );
                     break;
                 case 1:

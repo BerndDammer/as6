@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import as.globals.Globals;
 import as.gui.functionpanes.HomePane;
 import as.gui.functionpanes.InfoPane;
 import as.gui.functionpanes.MidiPane;
@@ -18,7 +19,6 @@ import as.gui.interfaces.IC_SelectionInterface;
 import as.gui.selectionbar.ExitButton;
 import as.gui.selectionbar.SelectionBar;
 import as.logging.LoggingInit;
-import as.starter.IC_StaticConst;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -41,9 +41,9 @@ public class ASRootNode extends GridPane implements IC_RootParent
 
     public ASRootNode()
     {
-        if (IC_StaticConst.SET_SIZE_INTERNAL)
+        if (Globals.SET_SIZE_INTERNAL)
         {
-            setPrefSize( IC_StaticConst.SCREEN_WIDTH, IC_StaticConst.SCREEN_HEIGHT );
+            setPrefSize( Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT );
         }
         setBackground( new Background( new BackgroundFill( Color.OLIVEDRAB, CornerRadii.EMPTY, Insets.EMPTY ) ) );
         add( headerBar, 0, 0, GridPane.REMAINING, 1 );
@@ -71,7 +71,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
     {
         //////////// give resizing hints
         ObservableList<RowConstraints> rows = getRowConstraints();
-        if (IC_StaticConst.LOG_GUI)
+        if (Globals.LOG_GUI)
             logger.info( "original row constraints size" + rows.size() );
 
         RowConstraints rc;
@@ -79,7 +79,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
         rc = new RowConstraints();
         // rc.setPercentHeight( 0 );
         rc.setVgrow( Priority.NEVER );
-        rc.setMinHeight( IC_StaticConst.GU );
+        rc.setMinHeight( Globals.GU );
         rows.add( rc );
         rc = new RowConstraints();
         // rc.setPercentHeight( 100 );
@@ -91,7 +91,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
         rows.add( rc );
 
         ObservableList<ColumnConstraints> ccs = getColumnConstraints();
-        if (IC_StaticConst.LOG_GUI)
+        if (Globals.LOG_GUI)
             logger.info( "original column constraints size" + ccs.size() );
         ColumnConstraints cc;
 

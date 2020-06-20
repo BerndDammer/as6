@@ -2,11 +2,11 @@ package as.gui.headerbar;
 
 import java.util.logging.Logger;
 
+import as.globals.Globals;
 import as.gui.central.ASRootNode;
 import as.gui.interfaces.IC_HeaderElement;
 import as.gui.interfaces.IC_HeaderInterface;
 import as.logging.LoggingInit;
-import as.starter.IC_StaticConst;
 import buildnumber.BuildNumber;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -72,7 +72,7 @@ public class HeaderBar extends GridPane implements IC_HeaderInterface
     {
         //////////// give resizing hints
         ObservableList<RowConstraints> rows = getRowConstraints();
-        if (IC_StaticConst.LOG_GUI)
+        if (Globals.LOG_GUI)
             logger.info( "header bar original row constraints size " + rows.size() );
 
         RowConstraints rc;
@@ -82,7 +82,7 @@ public class HeaderBar extends GridPane implements IC_HeaderInterface
         rows.add( rc );
 
         ObservableList<ColumnConstraints> ccs = getColumnConstraints();
-        if (IC_StaticConst.LOG_GUI)
+        if (Globals.LOG_GUI)
             logger.info( "headline column constraints size " + ccs.size() );
         ColumnConstraints cc;
 

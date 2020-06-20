@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
-import as.starter.IC_StaticConst;
+import as.globals.Globals;
 
 public class DemuxCall
 {
@@ -52,7 +52,7 @@ public class DemuxCall
 
     public static void scan( IL_MessageBaseReceiver<? extends MessageBase> receiver )
     {
-        if (IC_StaticConst.LOG_INTERIM)
+        if (Globals.LOG_INTERIM)
             logger.info( "Demux Scan class : " + receiver.getClass().getCanonicalName() );
         Method[] methods = receiver.getClass().getMethods();
         for (Method m : methods)
@@ -62,7 +62,7 @@ public class DemuxCall
                 Class<?>[] parameter = m.getParameterTypes();
                 for (Class<?> p : parameter)
                 {
-                    if (IC_StaticConst.LOG_INTERIM)
+                    if (Globals.LOG_INTERIM)
                         logger.info( "Scan for Parameter : " + p.getCanonicalName() );
                 }
             }
