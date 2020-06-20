@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
+import as.backend.midi.MidiMapper;
 import as.logging.LoggingInit;
+import as.persistent.midi.MidiMapperLDP8;
 import as.persistent.templates.ResourceVector;
 
 public class PersistentCentral
@@ -52,10 +56,24 @@ public class PersistentCentral
 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // singleton results
+    //
+    
+    public List<MidiMapper> getMidiMappers()
+    {
+    	LinkedList<MidiMapper> mappings = new LinkedList<>();
+    	mappings.add( new MidiMapperLDP8());
+    	return mappings;
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // static part
     //
     private static final PersistentCentral singletonPersistentCentral = new PersistentCentral();
-
+    public static PersistentCentral getPersPersistentCentral()
+    {
+    	return(singletonPersistentCentral);
+    }
     public static IC_SubTreeBase subPlatformSelector()
     {
         IC_SubTreeBase result = singletonPersistentCentral.getRootObject().getOrCreateSubTree("PlatformSelector");
