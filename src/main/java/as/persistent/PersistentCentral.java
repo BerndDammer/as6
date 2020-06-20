@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 
 import as.backend.midi.MidiMapper;
 import as.logging.LoggingInit;
+import as.persistent.midi.MidiMapperKorgNanoKontrolStudio;
 import as.persistent.midi.MidiMapperLDP8;
+import as.persistent.midi.MidiMapperMidiFighterTwister;
 import as.persistent.templates.ResourceVector;
 
 public class PersistentCentral
@@ -63,6 +65,8 @@ public class PersistentCentral
     {
     	LinkedList<MidiMapper> mappings = new LinkedList<>();
     	mappings.add( new MidiMapperLDP8());
+    	mappings.add( new MidiMapperMidiFighterTwister());
+    	mappings.add( new MidiMapperKorgNanoKontrolStudio());
     	return mappings;
     }
     ///////////////////////////////////////////////////////////////////////////////////////

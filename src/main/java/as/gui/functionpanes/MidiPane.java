@@ -147,6 +147,10 @@ public class MidiPane extends CenterPaneBase implements IF_DefaultReceiver {
 		{
 			eventList.nextMidi(message.data);
 		}
+		else if( message.data.length == 2)
+		{
+			LOG.warning( "2 byte Message : " + message.data[0] + " . " + message.data[1]);
+		}
 		else
 		{
 			LOG.warning( "Unexpected Message : " + message.data);
