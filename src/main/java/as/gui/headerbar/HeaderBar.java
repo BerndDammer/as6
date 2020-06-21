@@ -94,11 +94,11 @@ public class HeaderBar extends GridPane implements IC_HeaderInterface
         ccs.add( cc );
     }
 
-    @Override
-    public void add( IC_HeaderElement he )
-    {
-        getChildren().add( he.getNode() );
-    }
+//    @Override
+//    public void add( IC_HeaderElement he )
+//    {
+//        getChildren().add( he.getNode() );
+//    }
 
     @Override
     public void setTitle( String title )

@@ -46,8 +46,8 @@ public class Midi implements Receiver, IL_MessageBaseReceiver<MessageMidiControl
 				if (recCount > 0 || recCount == -1) {
 					devices.put(mi.getName(), mi);
 				} else {
-					LOG.warning("md:" + md);
-					LOG.warning("md.name:" + md.getDeviceInfo().getName());
+					LOG.info("md:" + md);
+					LOG.info("md.name:" + md.getDeviceInfo().getName());
 				}
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();

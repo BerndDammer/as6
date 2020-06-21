@@ -1,7 +1,7 @@
 package as.starter;
 
-import as.backend.FCPlatformSelector;
 import as.backend.midi.Midi;
+import as.backend.sound.FCPlatformSelector;
 import as.gui.central.ASApplication;
 import as.interim.message.IClientPort;
 import as.interim.port.ClientPort;

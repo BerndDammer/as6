@@ -37,11 +37,6 @@ public class HomePane extends CenterPaneBase implements IC_FunctionPane
     {
     	super(rootParent);
         
-        setGridLinesVisible( true );
-        setPadding( new Insets( 25, 25, 25, 25 ) );
-        setVgap( 2.0 );
-        setHgap( 1.0 );
-
         Label pw = new Label( "Password:" );
         add( pw, 0, 1 );
 

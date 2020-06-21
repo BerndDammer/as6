@@ -1,4 +1,4 @@
-package as.backend;
+package as.backend.sound;
 
 public class FCChannelSelectorASIO extends FCChannelSelectorBase
 {

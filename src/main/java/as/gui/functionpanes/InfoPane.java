@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 
 public class InfoPane extends CenterPaneBase implements IC_FunctionPane
 {
-
     private final Logger logger = LoggingInit.get( this );
 
     public InfoPane( IC_RootParent rootParent )
