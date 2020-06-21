@@ -12,22 +12,17 @@ import as.interim.message.midi.MessageMidiControl.CMD;
 import as.interim.message.midi.MessageMidiData;
 import as.logging.LoggingInit;
 import as.starter.StaticStarter;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	private final Logger LOG = LoggingInit.get(this);
@@ -109,33 +104,27 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	private class DeviceChoice extends ChoiceBox<String> {
 	}
 
-	private class SelectAndActivate extends ListView<String> {
-
+	private class SelectAndActivate extends TreeView<String> {
+		CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("Root");
 		/////////////////////////////////////////////////////////////////
 		public SelectAndActivate() {
+			setCellFactory( CheckBoxTreeCell.forTreeView());
+			root.setIndependent(false);
+			root.setSelected(false);
+			setRoot(root);
+			
 			getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-			//setCellFactory(CheckBoxListCell.forListView(this::switchh));
-			setCellFactory(this::generateCell);
+			setShowRoot(true);
 		}
 
 		void setItems(List<String> items) {
-			getItems().clear();
-			for (String s : items) {
-				getItems().add(s);
+			for( String s : items)
+			{
+				CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>(s);
+				checkBoxTreeItem.setIndependent(false);
+				checkBoxTreeItem.setSelected(false);
+				root.getChildren().add(checkBoxTreeItem);
 			}
-		}
-		// Callback<String,ObservableValue<Boolean>> 
-		private ObservableValue<Boolean> switchh(String param) {
-			ObservableValue<Boolean> result;
-			result = new SimpleBooleanProperty();
-			return result;
-		}
-		// Callback<ListView<String>, ListCell<String>>,
-		private ListCell<String> generateCell(ListView<String> master)
-		{
-			ListCell<String> result;
-			result = new CheckBoxListCell<String>(this::switchh);
-			return result;
 		}
 	}
 
