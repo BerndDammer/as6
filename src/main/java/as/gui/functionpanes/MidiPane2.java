@@ -1,6 +1,5 @@
 package as.gui.functionpanes;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import as.functionchain.IC_FunctionChainElement;
@@ -15,20 +14,13 @@ import as.starter.StaticStarter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.GridPane;
 
 public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	private final Logger LOG = LoggingInit.get(this);
-	private DeviceChoice deviceChoice = new DeviceChoice();
 
-	private SelectAndActivate deviceChoice2 = new SelectAndActivate();
+	private SingleStringSelection singleStringSelection = new SingleStringSelection();
 
 	MessageMidiControl mmc = new MessageMidiControl();
 
@@ -66,7 +58,7 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 		@Override
 		public void handle(ActionEvent event) {
 			mmc.cmd = CMD.SET_INPUT;
-			mmc.selectedInput = deviceChoice.getValue();
+			mmc.selectedInput = singleStringSelection.getValue();
 			StaticStarter.getClientPort().publish(mmc);
 		}
 	}
@@ -101,42 +93,16 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 		}
 	}
 
-	private class DeviceChoice extends ChoiceBox<String> {
-	}
 
-	private class SelectAndActivate extends TreeView<String> {
-		CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("Root");
-		/////////////////////////////////////////////////////////////////
-		public SelectAndActivate() {
-			setCellFactory( CheckBoxTreeCell.forTreeView());
-			root.setIndependent(false);
-			root.setSelected(false);
-			setRoot(root);
-			
-			getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-			setShowRoot(true);
-		}
-
-		void setItems(List<String> items) {
-			for( String s : items)
-			{
-				CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>(s);
-				checkBoxTreeItem.setIndependent(false);
-				checkBoxTreeItem.setSelected(false);
-				root.getChildren().add(checkBoxTreeItem);
-			}
-		}
-	}
 
 	public MidiPane2(IC_RootParent rootParent) {
 		super(rootParent);
 
-		add(deviceChoice, 0, 0);
+		add(singleStringSelection, 0, 0);
 		add(new Scan(), 0, 1);
 		add(new Select(), 0, 2);
 		add(new Start(), 0, 3);
 		add(new Stop(), 0, 4);
-		add(deviceChoice2, 0, 5);
 		add(eventList, 1, 0, 1, GridPane.REMAINING);
 		eventList.setEditable(false);
 
@@ -149,15 +115,9 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	public void receiveMessage(MessageMidiControl message) {
 		switch (message.cmd) {
 		case REQUEST_INFO:
-			deviceChoice2.setItems(message.inputNames);
-			deviceChoice.getItems().clear();
-			for (String s : message.inputNames) {
-				deviceChoice.getItems().add(s);
-			}
+			singleStringSelection.setItems(message.inputNames);
 			if (message.selectedInput != null) {
-				deviceChoice.setValue(message.selectedInput);
-			} else {
-				deviceChoice.setValue(deviceChoice.getItems().get(0));
+				singleStringSelection.setValue(message.selectedInput);
 			}
 			break;
 		case SET_INPUT:
