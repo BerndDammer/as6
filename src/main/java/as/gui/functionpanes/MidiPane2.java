@@ -16,12 +16,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
@@ -110,120 +109,34 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	private class DeviceChoice extends ChoiceBox<String> {
 	}
 
-	// private class SelectAndActivate extends ListView<String> implements
-	// Callback<ListView<String>, ListCell<String>>,
-	// Callback<String,ObservableValue<Boolean>> {
-	private class SelectAndActivate extends ListView<String>
-			implements Callback<String, ObservableValue<Boolean>> {
-		private class A extends StringConverter<String>
-				implements Callback<String, ObservableValue<Boolean>>, ObservableValue<Boolean> {
-			A() {
-
-			}
-
-			@Override
-			public ObservableValue<Boolean> call(String param) {
-				return this;
-			}
-
-			@Override
-			public String toString(String object) {
-				return object;
-			}
-
-			@Override
-			public String fromString(String string) {
-				return string;
-			}
-
-			@Override
-			public void addListener(InvalidationListener listener) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void removeListener(InvalidationListener listener) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void addListener(ChangeListener<? super Boolean> listener) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void removeListener(ChangeListener<? super Boolean> listener) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public Boolean getValue() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		}
-
-		private class SACell extends CheckBoxListCell<String> {
-			SACell(A a) {
-				super();
-
-			}
-		}
+	private class SelectAndActivate extends ListView<String> {
 
 		/////////////////////////////////////////////////////////////////
 		public SelectAndActivate() {
-			ObservableList<String> names = FXCollections.observableArrayList();
-			ObservableList<String> data = FXCollections.observableArrayList();
-
 			getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-			// ObservableList<String> items = getItems();
-			// items.addAll("A", "B", "C");
-			names.addAll("A", "B", "C");
-			data.addAll("Wieso", "weshalb", "warum");
-			setItems(data);
-
-			// setCellFactory(this);
-			// setCellFactory(ComboBoxListCell.forListView(names));
-			setCellFactory(CheckBoxListCell.forListView(this));
+			//setCellFactory(CheckBoxListCell.forListView(this::switchh));
+			setCellFactory(this::generateCell);
 		}
 
 		void setItems(List<String> items) {
-			// setCellFactory(ComboBoxListCell.forListView(FXCollections.observableArrayList("A",
-			// "B", "c")));
-			// setCellFactory( (ListView<String> list) -> new ComboBoxListCell());
 			getItems().clear();
 			for (String s : items) {
-				// getChildren().add(new SACell( new A()));
 				getItems().add(s);
 			}
-			// setCellFactory(ComboBoxListCell.forListView(FXCollections.observableArrayList("A",
-			// "B", "c")));
-			// setCellFactory( (ListView<String> list) -> new ComboBoxListCell<String>());
 		}
-
-		@Override
-		public ObservableValue<Boolean> call(String param) {
+		// Callback<String,ObservableValue<Boolean>> 
+		private ObservableValue<Boolean> switchh(String param) {
 			ObservableValue<Boolean> result;
 			result = new SimpleBooleanProperty();
 			return result;
 		}
-
-//		@Override
-//		public ListCell<String> call(ListView<String> param) {
-//			ListCell<String> result;
-//			result = new ComboBoxListCell<String>("!", "2", "3");
-//			// result.setItem("FTZFZTF");
-//			ListCell<String> result;
-//			ObservableList<String> names = FXCollections.observableArrayList();
-//			names.addAll("E", "F", "G");
-//
-//			result = new ComboBoxListCell<String>(names);
-//			return result;
-//		}
+		// Callback<ListView<String>, ListCell<String>>,
+		private ListCell<String> generateCell(ListView<String> master)
+		{
+			ListCell<String> result;
+			result = new CheckBoxListCell<String>(this::switchh);
+			return result;
+		}
 	}
 
 	public MidiPane2(IC_RootParent rootParent) {
