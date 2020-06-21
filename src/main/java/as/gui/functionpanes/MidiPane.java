@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import as.functionchain.IC_FunctionChainElement;
 import as.gui.interfaces.IC_RootParent;
-import as.gui.selectionbar.SelectionButton;
 import as.interim.message.DemuxReceiver;
 import as.interim.message.IF_DefaultReceiver;
 import as.interim.message.midi.MessageMidiControl;
@@ -98,7 +97,6 @@ public class MidiPane extends CenterPaneBase implements IF_DefaultReceiver {
 
 	public MidiPane(IC_RootParent rootParent) {
 		super(rootParent);
-		rootParent.getSelectionInterface().add(new SelectionButton("Midi", this, rootParent));
 
 		add(deviceChoice, 0, 0);
 		add(new Scan(), 0, 1);
@@ -155,5 +153,24 @@ public class MidiPane extends CenterPaneBase implements IF_DefaultReceiver {
 		{
 			LOG.warning( "Unexpected Message : " + message.data);
 		}
+	}
+
+
+	@Override
+	public void onPaneShow() {
+	}
+
+	@Override
+	public void onPaneHide() {
+	}
+
+	@Override
+	public String getHeadline() {
+		return "Midi";
+	}
+
+	@Override
+	public String getButtonName() {
+		return "Midi";
 	}
 }

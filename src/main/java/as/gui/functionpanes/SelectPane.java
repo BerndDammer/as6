@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_RootParent;
-import as.gui.selectionbar.SelectionButton;
 import as.interim.message.DemuxReceiver;
 import as.interim.message.IF_DefaultReceiver;
 import as.interim.message.sound.MessageChannelSelect;
@@ -14,15 +13,12 @@ import as.logging.LoggingInit;
 import as.starter.StaticStarter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 //public class SelectPane extends GridPane implements IC_FunctionPane, IL_MessageBaseReceiver<MessageBase>
-public class SelectPane extends GridPane implements IC_FunctionPane, IF_DefaultReceiver
+public class SelectPane extends CenterPaneBase implements IC_FunctionPane, IF_DefaultReceiver
 {
     private final Logger logger = LoggingInit.get( this );
 
@@ -122,7 +118,6 @@ public class SelectPane extends GridPane implements IC_FunctionPane, IF_DefaultR
     }
 
 
-    private final IC_RootParent rootParent;
     private final MessagePlatformSelect receivePlatformSelect = new MessagePlatformSelect();
     private final MessagePlatformSelect transmittPlatformSelect = new MessagePlatformSelect();
     private final MessageChannelSelect receiveChannelSelect = new MessageChannelSelect();
@@ -136,42 +131,12 @@ public class SelectPane extends GridPane implements IC_FunctionPane, IF_DefaultR
     
     public SelectPane( IC_RootParent rootParent )
     {
-        this.rootParent = rootParent;
-        rootParent.getSelectionInterface().add( new SelectionButton( "Select", this, rootParent ) );
-
-        setPadding( new Insets( 5, 5, 5, 5 ) );
-        setVgap( 2.0 );
-        setHgap( 1.0 );
+    	super(rootParent);
 
         StaticStarter.getClientPort().register( receivePlatformSelect, this );
         StaticStarter.getClientPort().register( receiveChannelSelect, this );
     }
 
-    @Override
-    public void setActive( boolean active )
-    {
-        if (active)
-        {
-            rootParent.getHeaderInterface().setTitle( "Select" );
-            transmittPlatformSelect.cmd = MessagePlatformSelect.CMD.REQUEST_LIST;
-            StaticStarter.getClientPort().publish( transmittPlatformSelect );
-        }
-    }
-
-    /////////////////////// vector implements
-    @Override
-    public Pane getPane()
-    {
-        // TODO Auto-generated method stub
-        return this;
-    }
-
-//    @Override
-//    @DemuxReceiver(used=false)
-//    public void receiveMessage( MessageBase mb )
-//    {
-//        logger.severe( "Unexpected message cmd" );
-//    }
 
     @DemuxReceiver(used=true)
     public void receiveMessage( MessagePlatformSelect mps )
@@ -210,4 +175,28 @@ public class SelectPane extends GridPane implements IC_FunctionPane, IF_DefaultR
                 break;
         }
     }
+
+
+	@Override
+	public void onPaneShow() {
+        transmittPlatformSelect.cmd = MessagePlatformSelect.CMD.REQUEST_LIST;
+        StaticStarter.getClientPort().publish( transmittPlatformSelect );
+	}
+
+
+	@Override
+	public void onPaneHide() {
+	}
+
+
+	@Override
+	public String getHeadline() {
+		return "Sound Select";
+	}
+
+
+	@Override
+	public String getButtonName() {
+		return "OSnd";
+	}
 }

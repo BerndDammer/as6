@@ -12,10 +12,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class HomePane extends GridPane implements IC_FunctionPane
+public class HomePane extends CenterPaneBase implements IC_FunctionPane
 {
     class MyButton extends Button implements EventHandler<ActionEvent>
     {
@@ -33,12 +32,10 @@ public class HomePane extends GridPane implements IC_FunctionPane
     }
 
     private final Logger logger = LoggingInit.get( this );
-    private final IC_RootParent rootParent;
 
     public HomePane(IC_RootParent rootParent)
     {
-        this.rootParent = rootParent;
-        rootParent.getSelectionInterface().add( new HomeButton(this, rootParent) );
+    	super(rootParent);
         
         setGridLinesVisible( true );
         setPadding( new Insets( 25, 25, 25, 25 ) );
@@ -53,21 +50,24 @@ public class HomePane extends GridPane implements IC_FunctionPane
         add( new MyButton(), 0, 3 );
     }
 
-    /////////////////////////////////////////////
-    @Override
-    public void setActive( boolean active )
-    {
-        if(active)
-        {
-            rootParent.getHeaderInterface().setTitle( "Home" );
-        }
-    }
-
     /////////////////////// vector implements
-    @Override
-    public Pane getPane()
-    {
-        // TODO Auto-generated method stub
-        return this;
-    }
+
+
+	@Override
+	public void onPaneShow() {
+	}
+
+	@Override
+	public void onPaneHide() {
+	}
+
+	@Override
+	public String getHeadline() {
+		return "Home";
+	}
+
+	@Override
+	public String getButtonName() {
+		return "Home";
+	}
 }

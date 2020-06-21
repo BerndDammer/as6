@@ -4,26 +4,21 @@ import java.util.logging.Logger;
 
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_RootParent;
-import as.gui.selectionbar.SelectionButton;
 import as.logging.LoggingInit;
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class InfoPane extends GridPane implements IC_FunctionPane
+public class InfoPane extends CenterPaneBase implements IC_FunctionPane
 {
 
     private final Logger logger = LoggingInit.get( this );
 
-    private final IC_RootParent rootParent;
-
     public InfoPane( IC_RootParent rootParent )
     {
-        this.rootParent = rootParent;
-        rootParent.getSelectionInterface().add( new SelectionButton( "Info", this, rootParent ) );
+    	super( rootParent);
 
         setPadding( new Insets( 10, 10, 10, 10 ) );
         setVgap( 3.0 );
@@ -41,21 +36,6 @@ public class InfoPane extends GridPane implements IC_FunctionPane
         addProp( "javafx.vm.name", x, y );
         y++;
         showFX( 2, 0 );
-    }
-
-    @Override
-    public void setActive( boolean active )
-    {
-        if (active)
-        {
-            rootParent.getHeaderInterface().setTitle( "System Information" );
-        }
-    }
-    /////////////////////// vector implements
-    @Override
-    public Pane getPane()
-    {
-        return this;
     }
 
     ////////////////////////////////////////////////
@@ -86,4 +66,24 @@ public class InfoPane extends GridPane implements IC_FunctionPane
             }
         }
     }
+    //////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void onPaneShow() {
+	}
+
+	@Override
+	public void onPaneHide() {
+	}
+
+	@Override
+	public String getHeadline() {
+		return "System Information";
+	}
+
+	@Override
+	public String getButtonName() {
+		// TODO Auto-generated method stub
+		return "Info";
+	}
 }

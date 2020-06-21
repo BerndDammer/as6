@@ -32,7 +32,7 @@ import javafx.scene.paint.Color;
 
 public class ASRootNode extends GridPane implements IC_RootParent
 {
-    private final Logger logger = LoggingInit.get( this );
+    private final Logger LOG = LoggingInit.get( this );
 
     private final HeaderBar headerBar = new HeaderBar( this );
     private final SelectionBar functionBar = new SelectionBar( this );
@@ -64,7 +64,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
         functionBar.add( new ExitButton() );
 
         defineStretching();
-        activePane.setActive( true );
+        activePane.onPaneShow();
     }
 
     private final void defineStretching()
@@ -72,7 +72,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
         //////////// give resizing hints
         ObservableList<RowConstraints> rows = getRowConstraints();
         if (Globals.LOG_GUI)
-            logger.info( "original row constraints size" + rows.size() );
+            LOG.info( "original row constraints size" + rows.size() );
 
         RowConstraints rc;
 
@@ -92,7 +92,7 @@ public class ASRootNode extends GridPane implements IC_RootParent
 
         ObservableList<ColumnConstraints> ccs = getColumnConstraints();
         if (Globals.LOG_GUI)
-            logger.info( "original column constraints size" + ccs.size() );
+            LOG.info( "original column constraints size" + ccs.size() );
         ColumnConstraints cc;
 
         cc = new ColumnConstraints();
@@ -116,12 +116,19 @@ public class ASRootNode extends GridPane implements IC_RootParent
     @Override
     public void activateFunctionPane( IC_FunctionPane functionPane )
     {
-        activePane.setActive( false );
-        getChildren().remove( activePane.getPane() );
-        activePane = functionPane;
-        add( activePane.getPane(), 0, 1, GridPane.REMAINING, 1 );
-        requestLayout();
-        activePane.setActive( true );
+    	if( functionPane == activePane)
+    	{
+    		LOG.info("Function Pane change to equal:" + functionPane.getClass().getName());
+    	}
+    	else
+    	{
+            activePane.onPaneHide();
+            getChildren().remove( activePane.getPane() );
+            activePane = functionPane;
+            add( activePane.getPane(), 0, 1, GridPane.REMAINING, 1 );
+            getHeaderInterface().setTitle( functionPane.getHeadline());
+            requestLayout();
+            activePane.onPaneShow();
+    	}
     }
-
 }

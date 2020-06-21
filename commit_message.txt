@@ -1,2 +1,1 @@
-ReSort Globals
-
+Resort Function Pane Interface

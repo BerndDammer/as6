@@ -2,7 +2,7 @@ package as.gui.functionpanes;
 
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_RootParent;
-import as.interim.message.IF_DefaultReceiver;
+import as.gui.selectionbar.SelectionButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -12,6 +12,7 @@ public abstract class CenterPaneBase extends GridPane implements IC_FunctionPane
 
 	CenterPaneBase(IC_RootParent rootParent) {
 		this.rootParent = rootParent;
+		rootParent.getSelectionInterface().add(new SelectionButton( getButtonName(), this, rootParent));
 
 		setPadding(new Insets(5, 5, 5, 5));
 		setVgap(4.0);
@@ -19,18 +20,8 @@ public abstract class CenterPaneBase extends GridPane implements IC_FunctionPane
 	}
 
 	@Override
-	public void setActive(boolean active) {
-		if (active) {
-			rootParent.getHeaderInterface().setTitle("Base");
-		} else {
-			rootParent.getHeaderInterface().setTitle("Off");
-		}
-	}
-
-	/////////////////////// vector implements
-	@Override
-	public Pane getPane() {
-		return this;
-	}
-
+    public Pane getPane()
+    {
+        return this;
+    }
 }

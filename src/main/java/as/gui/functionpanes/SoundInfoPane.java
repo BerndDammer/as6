@@ -1,5 +1,7 @@
 package as.gui.functionpanes;
 
+import java.util.logging.Logger;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Control;
@@ -13,13 +15,14 @@ import javax.sound.sampled.TargetDataLine;
 
 import as.gui.interfaces.IC_RootParent;
 import as.gui.selectionbar.SelectionButton;
+import as.logging.LoggingInit;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
 public class SoundInfoPane extends CenterPaneBase {
-	// private final Logger logger = LoggingInit.get( this );
+	private final Logger logger = LoggingInit.get( this );
 	private L0SoundInfo soundInfo = new L0SoundInfo();
 
 	private class L3Control extends TreeItem<String>
@@ -140,7 +143,6 @@ public class SoundInfoPane extends CenterPaneBase {
 
 	public SoundInfoPane(IC_RootParent rootParent) {
 		super(rootParent);
-		rootParent.getSelectionInterface().add(new SelectionButton("Sound", this, rootParent));
 
 		TreeView<String> treeView = new TreeView<>(soundInfo);
 		//add(new ScrollPane(treeView), 0, 0);
@@ -150,10 +152,22 @@ public class SoundInfoPane extends CenterPaneBase {
 		treeView.setShowRoot(false);
 	}
 
+
 	@Override
-	public void setActive(boolean active) {
-		if (active) {
-			rootParent.getHeaderInterface().setTitle("Sound Information");
-		}
+	public void onPaneShow() {
+	}
+
+	@Override
+	public void onPaneHide() {
+	}
+
+	@Override
+	public String getHeadline() {
+		return "Sound Information";
+	}
+
+	@Override
+	public String getButtonName() {
+		return "SInfo";
 	}
 }

@@ -1,17 +1,17 @@
 package as.gui.functionpanes;
 
+import java.util.logging.Logger;
+
 import as.gui.interfaces.IC_FunctionPane;
 import as.gui.interfaces.IC_RootParent;
-import as.gui.selectionbar.SelectionButton;
+import as.logging.LoggingInit;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
-public class RunPane extends GridPane implements IC_FunctionPane
+public class RunPane extends CenterPaneBase implements IC_FunctionPane
 {
+    private final Logger logger = LoggingInit.get( this );
     
     class MyButton extends Button implements EventHandler<ActionEvent>
     {
@@ -28,38 +28,29 @@ public class RunPane extends GridPane implements IC_FunctionPane
         }
     }
 
-    //private final Logger logger = LoggingInit.get( this );
 
-    private final IC_RootParent rootParent;
 
     public RunPane(IC_RootParent rootParent)
     {
-        this.rootParent = rootParent;
-        rootParent.getSelectionInterface().add( new SelectionButton("Run", this, rootParent) );
+    	super(rootParent);
         
         setGridLinesVisible( true );
-        setPadding( new Insets( 5, 5, 5, 5 ) );
-        setVgap( 2.0 );
-        setHgap( 1.0 );
 
         add( new MyButton(), 0, 3 );
 
     }
-    @Override
-    public void setActive( boolean active )
-    {
-        if(active)
-        {
-            rootParent.getHeaderInterface().setTitle( "Run" );
-        }
-    }
-
-    /////////////////////// vector implements
-    @Override
-    public Pane getPane()
-    {
-        // TODO Auto-generated method stub
-        return this;
-    }
-
+	@Override
+	public void onPaneShow() {
+	}
+	@Override
+	public void onPaneHide() {
+	}
+	@Override
+	public String getHeadline() {
+		return "Run";
+	}
+	@Override
+	public String getButtonName() {
+		return "Run";
+	}
 }
