@@ -166,7 +166,7 @@ public class MidiPane extends CenterPaneBase implements IF_DefaultReceiver {
 
 	@Override
 	public String getHeadline() {
-		return "Midi";
+		return "Midi Installation";
 	}
 
 	@Override
