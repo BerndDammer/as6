@@ -3,6 +3,7 @@ package as.gui.functionpanes;
 import java.util.logging.Logger;
 
 import as.functionchain.IC_FunctionChainElement;
+import as.gui.helper.SingleStringSelection;
 import as.gui.interfaces.IC_RootParent;
 import as.interim.message.DemuxReceiver;
 import as.interim.message.IF_DefaultReceiver;
@@ -15,7 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Stop;
 
 public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 	private final Logger LOG = LoggingInit.get(this);
@@ -63,9 +66,9 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 		}
 	}
 
-	private class Start extends Button implements EventHandler<ActionEvent> {
-		Start() {
-			super("Start");
+	private class EchoSwitch extends ToggleButton implements EventHandler<ActionEvent> {
+		EchoSwitch() {
+			super("Message Echo");
 			setOnAction(this);
 		}
 
@@ -78,20 +81,20 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 		}
 	}
 
-	private class Stop extends Button implements EventHandler<ActionEvent> {
-		Stop() {
-			super("Stop");
-			setOnAction(this);
-		}
-
-		@Override
-		public void handle(ActionEvent event) {
-
-			mmc.cmd = CMD.SET_STATE;
-			mmc.state = IC_FunctionChainElement.STATE.HAS_PARA;
-			StaticStarter.getClientPort().publish(mmc);
-		}
-	}
+//	private class Stop extends Button implements EventHandler<ActionEvent> {
+//		Stop() {
+//			super("Stop");
+//			setOnAction(this);
+//		}
+//
+//		@Override
+//		public void handle(ActionEvent event) {
+//
+//			mmc.cmd = CMD.SET_STATE;
+//			mmc.state = IC_FunctionChainElement.STATE.HAS_PARA;
+//			StaticStarter.getClientPort().publish(mmc);
+//		}
+//	}
 
 
 
@@ -102,7 +105,7 @@ public class MidiPane2 extends CenterPaneBase implements IF_DefaultReceiver {
 		add(new Scan(), 0, 1);
 		add(new Select(), 0, 2);
 		add(new Start(), 0, 3);
-		add(new Stop(), 0, 4);
+		//add(new Stop(), 0, 4);
 		add(eventList, 1, 0, 1, GridPane.REMAINING);
 		eventList.setEditable(false);
 

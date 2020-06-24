@@ -1,8 +1,9 @@
-package as.gui.functionpanes;
+package as.gui.helper;
 
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,9 +15,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class SingleStringSelection extends VBox implements EventHandler<ActionEvent> {
+public class SingleStringSelection<A> extends VBox implements EventHandler<ActionEvent> {
 	private final SimpleStringProperty simpleStringProperty = new SimpleStringProperty();
-
+	
+	private ChangeListener<String> a = null;
+	
 	public SingleStringSelection() {
 		setPadding(new Insets(6, 6, 6, 6));
 		setSpacing(10);
@@ -59,5 +62,11 @@ public class SingleStringSelection extends VBox implements EventHandler<ActionEv
 			CheckBox anyBox = (CheckBox) node;
 			anyBox.selectedProperty().setValue(selectedInput.equals(anyBox.getText()));
 		}
+	}
+	public void setListener(ChangeListener<String> a)
+	{
+		simpleStringProperty.removeListener( this.a);
+		this.a = a;
+		simpleStringProperty.addListener(a);
 	}
 }
